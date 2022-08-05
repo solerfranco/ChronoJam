@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  removeOldArtifacts:
+    runs-on: ubuntu-latest
+    name: Remove artifacts
+    # You may pin to the exact commit or the version.
+    # uses: c-hive/gha-remove-artifacts@24dc23384a1fa6a058b79c73727ae0cb2200ca4c
+    steps:
+      - uses: c-hive/gha-remove-artifacts@v1.2.0
+        with:
+          # Artifacts older than this will be deleted (e.g. "2 months", "1 day"). Parsed by moment.
+          age: 1 minute
+          # Access token for the repository, available under the same name in secrets.
+          GITHUB_TOKEN: ${{ github.token }}
+  buildAndTestForSomePlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath:
+          - ./
+        unityVersion:
+          - 2021.3.6f1
+        targetPlatform:
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ChronoJam-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
