@@ -5,8 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Combo combo;
     public float speed;
     public float jumpForce;
+    public int[] comboThreshold;
 
     private bool jumpInput;
     private float direction;
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        combo = Combo.GetInstance();
     }
 
     void Update()
@@ -57,6 +60,9 @@ public class Player : MonoBehaviour
             {
                 CallDash(Vector2.right);
             }
+        } else
+        {
+            combo.ResetCombo();
         }
     }
 
@@ -124,7 +130,8 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fly"))
         {
-            CurrentDash--;
+            combo.IncrementComboByEnemyType("enemy");
+            dashRefill(combo.ComboMultiplier);
             Destroy(collision.gameObject);
             freezeCoroutine = StartCoroutine(FreezeFrame());
         }
@@ -176,6 +183,19 @@ public class Player : MonoBehaviour
     {
         //TODO: agregar logica de seteo de dash
         CurrentDash = 0;
+    }
+
+    void dashRefill(int combo)
+    {
+        CurrentDash--;
+        if(combo > comboThreshold[0])
+        {
+            CurrentDash -= 2;
+        }
+        if (combo > comboThreshold[1])
+        {
+            CurrentDash -= 3;
+        }
     }
 }
 
