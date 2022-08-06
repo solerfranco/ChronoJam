@@ -65,8 +65,9 @@ public class Player : MonoBehaviour
         if (freezeCoroutine != null)
         {
             StopCoroutine(freezeCoroutine);
-            Time.fixedDeltaTime = 0.02f;
         }
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f;
     }
 
     private void FixedUpdate()
@@ -138,3 +139,6 @@ public class Player : MonoBehaviour
 
 //Dash diagonal
 //Multiples generadores de moscas
+
+//El tiempo queda congelado
+//En las paredes te quedas trabado
