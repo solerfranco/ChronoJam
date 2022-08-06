@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
         }
         else if(!dashing)
         {
-            rb.velocity = new Vector2(direction * speed / 4 * Time.fixedDeltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(direction * speed / 3 * Time.fixedDeltaTime, rb.velocity.y);
         }
         if (jumpInput)
         {
