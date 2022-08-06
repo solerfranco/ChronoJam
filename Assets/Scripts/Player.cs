@@ -9,27 +9,25 @@ public class Player : MonoBehaviour
     public float speed;
     public float jumpForce;
     public int[] comboThreshold;
-
     private bool jumpInput;
     private float direction;
     public bool onFloor;
-    public int dashLimit;
-    private int CurrentDash
-    {
-        get
-        {
-            return currentDash;
-        }
-        set
-        {
-            currentDash = value;
-            //CheckColor();
-        }
-    }
-    private int currentDash;
+    private int dashesRemaning;
     private Coroutine freezeCoroutine;
     private bool dashing;
     private Vector2 velocity;
+    private int DashesRemaning
+    {
+        get
+        {
+            return dashesRemaning;
+        }
+        set
+        {
+            dashesRemaning = value;
+            //CheckColor();
+        }
+    }
 
     private void Awake()
     {
@@ -60,9 +58,6 @@ public class Player : MonoBehaviour
             {
                 CallDash(Vector2.right);
             }
-        } else
-        {
-            combo.ResetCombo();
         }
     }
 
@@ -71,7 +66,7 @@ public class Player : MonoBehaviour
         if (dashing) return;
         RestoreTime();
         Time.timeScale = 1;
-        if (CurrentDash < dashLimit)
+        if (DashesRemaning > 0)
         {
             rb.velocity = new Vector2(0, 0);
             StartCoroutine(Dash());
@@ -95,6 +90,8 @@ public class Player : MonoBehaviour
         if (onFloor)
         {
             rb.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
+            combo.ResetCombo();
+            DashesRemaning = 1;
         }
         else if(!dashing)
         {
@@ -139,7 +136,7 @@ public class Player : MonoBehaviour
 
     private void CheckColor()
     {
-        switch (dashLimit - CurrentDash)
+        switch (DashesRemaning)
         {
             case 0:
                 GetComponent<SpriteRenderer>().color = Color.red;
@@ -170,7 +167,7 @@ public class Player : MonoBehaviour
         dashing = true;
         yield return new WaitForSecondsRealtime(0.03f);
         rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal"), (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 0).normalized * jumpForce * 1.5f, ForceMode2D.Impulse);
-        CurrentDash++;
+        DashesRemaning--;
         rb.gravityScale = 0;
         yield return new WaitForSeconds(0.2f);
         rb.velocity = rb.velocity/2.5f;
@@ -182,19 +179,19 @@ public class Player : MonoBehaviour
     private void ResetDashLimit()
     {
         //TODO: agregar logica de seteo de dash
-        CurrentDash = 0;
+        DashesRemaning = 0;
     }
 
     void dashRefill(int combo)
     {
-        CurrentDash--;
-        if(combo > comboThreshold[0])
+        DashesRemaning++;
+        if(combo > comboThreshold[0] && combo <= comboThreshold[1])
         {
-            CurrentDash -= 2;
+            DashesRemaning = 2;
         }
-        if (combo > comboThreshold[1])
+        else if (combo > comboThreshold[1])
         {
-            CurrentDash -= 3;
+            DashesRemaning = 3;
         }
     }
 }
