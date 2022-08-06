@@ -13,7 +13,7 @@ public class Fly : MonoBehaviour
 
     void Start()
     {
-        LeanTween.moveY(gameObject, 1.5f, 0.8f).setEaseInOutQuad().setLoopPingPong(-1);
+        LeanTween.moveY(gameObject, Random.Range(0.5f, 1.5f), 0.8f).setEaseInOutQuad().setLoopPingPong(-1);
     }
 
     // Update is called once per frame

@@ -14,8 +14,8 @@ public class FlySpawner : MonoBehaviour
 
     private IEnumerator SpawnFly()
     {
+        yield return new WaitForSeconds(Random.Range(1f, 7f));
         Instantiate(fly, transform.position, Quaternion.identity, null);
-        yield return new WaitForSeconds(Random.Range(1f, 4f));
         StartCoroutine(SpawnFly());
     }
 }

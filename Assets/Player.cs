@@ -12,9 +12,22 @@ public class Player : MonoBehaviour
     private float direction;
     public bool onFloor;
     public int dashLimit;
+    private int CurrentDash
+    {
+        get
+        {
+            return currentDash;
+        }
+        set
+        {
+            currentDash = value;
+            //CheckColor();
+        }
+    }
     private int currentDash;
     private Coroutine freezeCoroutine;
     private bool dashing;
+    private Vector2 velocity;
 
     private void Awake()
     {
@@ -23,7 +36,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -13f, 13f), Mathf.Clamp(transform.position.y, -10, 7.3f), 0);
+        if (rb.velocity != Vector2.zero) velocity = rb.velocity;
+        GetComponent<SpriteRenderer>().flipX = velocity.x < 0;
         direction = Input.GetAxisRaw("Horizontal");
         if (Input.GetKeyDown(KeyCode.W) && onFloor)
         {
@@ -32,7 +46,7 @@ public class Player : MonoBehaviour
 
         if (!onFloor)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 CallDash(Vector2.up);
             }
@@ -52,7 +66,7 @@ public class Player : MonoBehaviour
         if (dashing) return;
         RestoreTime();
         Time.timeScale = 1;
-        if (currentDash < dashLimit)
+        if (CurrentDash < dashLimit)
         {
             rb.velocity = new Vector2(0, 0);
             StartCoroutine(Dash());
@@ -72,14 +86,18 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, -13f, 13f), Mathf.Clamp(transform.position.y, -10, 7.3f), 0);
         if (onFloor)
         {
             rb.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
-            resetDashLimit();
+        }
+        else if(!dashing)
+        {
+            rb.velocity = new Vector2(direction * speed / 4 * Time.fixedDeltaTime, rb.velocity.y);
         }
         if (jumpInput)
         {
-            LeanTween.scaleX(gameObject, 0.65f, 0.05f).setLoopPingPong(1);
+            //LeanTween.scaleX(gameObject, 0.65f, 0.05f).setLoopPingPong(1);
             //rb.velocity = Vector2.zero;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpInput = false;
@@ -92,8 +110,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Floor"))
         {
             RestoreTime();
-            resetDashLimit();
+            ResetDashLimit();
             onFloor = true;
+        }
+
+        if (collision.gameObject.CompareTag("Wall") || dashing)
+        {
+            RestoreTime();
+            rb.AddForce(new Vector2(-velocity.x, velocity.y), ForceMode2D.Impulse);
         }
     }
 
@@ -101,9 +125,28 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fly"))
         {
-            currentDash--;
+            CurrentDash--;
             Destroy(collision.gameObject);
             freezeCoroutine = StartCoroutine(FreezeFrame());
+        }
+    }
+
+    private void CheckColor()
+    {
+        switch (dashLimit - CurrentDash)
+        {
+            case 0:
+                GetComponent<SpriteRenderer>().color = Color.red;
+                break;
+            case 1:
+                GetComponent<SpriteRenderer>().color = Color.yellow;
+                break;
+            case 2:
+                GetComponent<SpriteRenderer>().color = Color.green;
+                break;
+            default:
+                GetComponent<SpriteRenderer>().color = Color.blue;
+                break;
         }
     }
 
@@ -119,21 +162,21 @@ public class Player : MonoBehaviour
     private IEnumerator Dash()
     {
         dashing = true;
-        yield return new WaitForSecondsRealtime(0.02f);
-        rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetKey(KeyCode.W) ? 1 : 0).normalized * jumpForce * 1.2f, ForceMode2D.Impulse);
-        currentDash++;
+        yield return new WaitForSecondsRealtime(0.03f);
+        rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal"), (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 0).normalized * jumpForce * 1.5f, ForceMode2D.Impulse);
+        CurrentDash++;
         rb.gravityScale = 0;
-        yield return new WaitForSeconds(0.3f);
-        rb.velocity = rb.velocity/2;
+        yield return new WaitForSeconds(0.2f);
+        rb.velocity = rb.velocity/2.5f;
         yield return new WaitForSeconds(0.1f);
         rb.gravityScale = 3;
         dashing = false;
     }
 
-    private void resetDashLimit()
+    private void ResetDashLimit()
     {
         //TODO: agregar logica de seteo de dash
-        currentDash = 0;
+        CurrentDash = 0;
     }
 }
 
