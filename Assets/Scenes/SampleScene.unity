@@ -479,8 +479,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5302729331085272682, guid: 77ae1953782abcf418588dbe951aa538, type: 3}
-  minTime: 2
-  maxTime: 5
+  minTime: 1
+  maxTime: 1
+  move: 0
+  variants:
+  - {fileID: 21300000, guid: 9ba464ad2bdde4e4b888cdfdde17dec3, type: 3}
+  - {fileID: 21300000, guid: 6d78b2143371ff94c85d2d7e15249e34, type: 3}
+  - {fileID: 21300000, guid: 8a0eb0b7b32b2b24ea8bd358a9104dbb, type: 3}
+  - {fileID: 21300000, guid: 40c93057f7aacbd48a90b7183f7b50c9, type: 3}
+  - {fileID: 21300000, guid: c0802ad1bfe0f33449ba0ab2afc9158f, type: 3}
+  - {fileID: 21300000, guid: 17af9a1cd2adfd2468cf87b27cb9091d, type: 3}
 --- !u!4 &844297996
 Transform:
   m_ObjectHideFlags: 0
@@ -489,7 +497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844297994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.75, y: 0, z: 0}
+  m_LocalPosition: {x: 26.75, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -861,6 +869,8 @@ MonoBehaviour:
   prefab: {fileID: 3304669346922194918, guid: 3e152231079530b41ba7e0cfc4e829dd, type: 3}
   minTime: 1
   maxTime: 7
+  move: 1
+  variants: []
 --- !u!4 &1219429222
 Transform:
   m_ObjectHideFlags: 0
@@ -960,7 +970,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3484336, g: 0.509434, b: 0.4401738, a: 1}
   m_FlipX: 0
@@ -1019,6 +1029,8 @@ MonoBehaviour:
   prefab: {fileID: 3304669346922194918, guid: 3e152231079530b41ba7e0cfc4e829dd, type: 3}
   minTime: 1
   maxTime: 7
+  move: 1
+  variants: []
 --- !u!4 &1725333780
 Transform:
   m_ObjectHideFlags: 0
@@ -1066,6 +1078,8 @@ MonoBehaviour:
   prefab: {fileID: 3304669346922194918, guid: 3e152231079530b41ba7e0cfc4e829dd, type: 3}
   minTime: 1
   maxTime: 7
+  move: 1
+  variants: []
 --- !u!4 &1802472134
 Transform:
   m_ObjectHideFlags: 0
