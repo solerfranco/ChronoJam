@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (rb.velocity != Vector2.zero) velocity = rb.velocity;
-        GetComponent<SpriteRenderer>().flipX = velocity.x < 0;
         direction = Input.GetAxisRaw("Horizontal");
         if (Input.GetKeyDown(KeyCode.W) && onFloor)
         {
