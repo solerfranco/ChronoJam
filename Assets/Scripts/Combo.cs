@@ -2,10 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combo : MonoBehaviour
+public sealed class Combo : MonoBehaviour
 {
 
+    private static Combo instance;
+
     public int ComboMultiplier { get; set; }
+
+    public static Combo GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Combo();
+        }
+        return instance;
+    }
 
     void Start()
     {
