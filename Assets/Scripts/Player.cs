@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public float speed;
     public float jumpForce;
+    private Animator anim;
 
     private bool jumpInput;
     private float direction;
@@ -32,12 +33,15 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+        anim.SetTrigger("Walk");
     }
 
     void Update()
     {
         if (rb.velocity != Vector2.zero) velocity = rb.velocity;
         direction = Input.GetAxisRaw("Horizontal");
+        anim.SetFloat("Direction", direction);
         if (Input.GetKeyDown(KeyCode.W) && onFloor)
         {
             jumpInput = true;
@@ -88,11 +92,11 @@ public class Player : MonoBehaviour
         //transform.position = new Vector3(Mathf.Clamp(transform.position.x, -13f, 13f), Mathf.Clamp(transform.position.y, -10, 7.3f), 0);
         if (onFloor)
         {
-            rb.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(direction * (direction < 0 ? speed : speed / 1.5f) * Time.fixedDeltaTime, rb.velocity.y);
         }
         else if(!dashing)
         {
-            rb.velocity = new Vector2(direction * speed / 3 * Time.fixedDeltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(direction * speed / 1.5f * Time.fixedDeltaTime, rb.velocity.y);
         }
         if (jumpInput)
         {
@@ -160,16 +164,18 @@ public class Player : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        anim.SetBool("Dashing", true);
         dashing = true;
         yield return new WaitForSecondsRealtime(0.03f);
         rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal"), (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 0).normalized * jumpForce * 1.5f, ForceMode2D.Impulse);
         CurrentDash++;
         rb.gravityScale = 0;
         yield return new WaitForSeconds(0.2f);
-        rb.velocity = rb.velocity/2.5f;
+        rb.velocity = rb.velocity/1.3f;
         yield return new WaitForSeconds(0.1f);
         rb.gravityScale = 3;
         dashing = false;
+        anim.SetBool("Dashing", false);
     }
 
     private void ResetDashLimit()
