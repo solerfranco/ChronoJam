@@ -19,6 +19,6 @@ public class Fly : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(-200 * Time.fixedDeltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(-300 * Time.fixedDeltaTime, rb.velocity.y);
     }
 }
