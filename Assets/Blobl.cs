@@ -5,6 +5,7 @@ using UnityEngine;
 public class Blobl : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public GameObject particles;
 
     private void Awake()
     {
@@ -14,5 +15,13 @@ public class Blobl : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(-800 * Time.fixedDeltaTime, rb.velocity.y);
+    }
+
+    private void OnDestroy()
+    {
+        if (particles)
+        {
+            Instantiate(particles, transform.position, Quaternion.identity, null);
+        }
     }
 }
