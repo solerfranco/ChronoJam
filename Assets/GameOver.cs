@@ -5,16 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private bool restart = false;
+
     void Start()
     {
-        LeanTween.moveLocalY(gameObject, 0, 1).setEaseOutBounce();
+        LeanTween.moveLocalY(gameObject, 0, 1).setEaseInOutQuad();
+        Invoke(nameof(AllowRestart), 1f);
     }
 
-    // Update is called once per frame
+    void AllowRestart()
+    {
+        restart = true;
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.D)) && restart)
         {
             SceneManager.LoadScene(0);
         }

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class LifeCounter : MonoBehaviour
 
 {
+    public Slider ageSlider;
     public bool isStarted;
     public TextMeshProUGUI textUi;
     public float Life
@@ -19,6 +21,7 @@ public class LifeCounter : MonoBehaviour
         {
             life = value;
             textUi.text = ((int)value).ToString();
+            ageSlider.value = value;
         }
     }
     public float StartingLife;
@@ -31,6 +34,7 @@ public class LifeCounter : MonoBehaviour
     void Start()
     {
         Life = StartingLife;
+        ageSlider.maxValue = StartingLife;
     }
 
     void Update()

@@ -132,6 +132,14 @@ public class Player : MonoBehaviour
             RestoreTime();
             rb.AddForce(new Vector2(-velocity.x, velocity.y), ForceMode2D.Impulse);
         }
+
+        if (collision.gameObject.CompareTag("Bee"))
+        {
+            lifeCounter.DecreaseLife(collision.gameObject.tag);
+            Destroy(collision.gameObject);
+            //freezeCoroutine = StartCoroutine(FreezeFrame());
+        }
+        combo.IncrementComboByEnemyType(collision.gameObject.tag);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -142,6 +150,12 @@ public class Player : MonoBehaviour
             dashRefill(combo.ComboMultiplier);
             Destroy(collision.gameObject);
             freezeCoroutine = StartCoroutine(FreezeFrame());
+        }
+        if (collision.gameObject.CompareTag("Bee"))
+        {
+            lifeCounter.DecreaseLife(collision.gameObject.tag);
+            Destroy(collision.gameObject);
+            //freezeCoroutine = StartCoroutine(FreezeFrame());
         }
         combo.IncrementComboByEnemyType(collision.gameObject.tag);
     }
@@ -180,7 +194,7 @@ public class Player : MonoBehaviour
         anim.SetBool("Dashing", true);
         dashing = true;
         yield return new WaitForSecondsRealtime(0.03f);
-        rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal"), (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 0).normalized * jumpForce * 1.5f, ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal") * ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 1.3f), (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 0) * jumpForce * 1.2f, ForceMode2D.Impulse);
         DashesRemaning--;
         rb.gravityScale = 0;
         yield return new WaitForSeconds(0.2f);
