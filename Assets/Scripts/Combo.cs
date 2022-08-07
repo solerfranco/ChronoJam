@@ -1,21 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public sealed class Combo : MonoBehaviour
 {
 
-    private static Combo instance;
-
-    public int ComboMultiplier { get; set; }
-
-    public static Combo GetInstance()
+    public static Combo instance;
+    public TextMeshProUGUI textUi;
+    private int comboMultiplier;
+    public int ComboMultiplier
     {
-        if (instance == null)
+        get
         {
-            instance = new Combo();
+            return comboMultiplier;
         }
-        return instance;
+        set
+        {
+            comboMultiplier = value;
+            textUi.text = "x" + value;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     void Start()

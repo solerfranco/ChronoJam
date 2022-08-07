@@ -35,12 +35,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         anim.SetTrigger("Walk");
-        combo = Combo.GetInstance();
+        combo = Combo.instance;
     }
 
     void Update()
