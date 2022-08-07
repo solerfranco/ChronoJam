@@ -20,6 +20,27 @@ public sealed class Combo : MonoBehaviour
         {
             comboMultiplier = value;
             textUi.text = "x" + value;
+            switch (value)
+            {
+                case 0:
+                    textUi.color = Color.white;
+                    break;
+                case 1:
+                    textUi.color = Color.green;
+                    break;
+                case 2:
+                    textUi.color = Color.yellow;
+                    break;
+                case 3:
+                    textUi.color = Color.magenta;
+                    break;
+                case 4:
+                    textUi.color = Color.red;
+                    break;
+                default:
+                    textUi.color = Color.cyan;
+                    break;
+            }
         }
     }
 

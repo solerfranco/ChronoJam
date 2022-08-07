@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Animator anim;
     public AudioSource audioSourceJump;
     public AudioSource audioSourceDash;
+    public AudioSource audioSourceHit;
     public LifeCounter lifeCounter;
 
     public int[] comboThreshold;
@@ -141,6 +142,7 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Bee"))
         {
+            audioSourceHit.Play();
             lifeCounter.DecreaseLife(collision.gameObject.tag);
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
@@ -162,6 +164,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Bee"))
         {
+            audioSourceHit.Play();
             lifeCounter.DecreaseLife(collision.gameObject.tag);
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
