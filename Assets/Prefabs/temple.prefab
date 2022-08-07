@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: -500
+  destroy: 0
 --- !u!82 &6862961935172182738
 AudioSource:
   m_ObjectHideFlags: 0
