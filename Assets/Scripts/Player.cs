@@ -107,6 +107,7 @@ public class Player : MonoBehaviour
         {
             //LeanTween.scaleX(gameObject, 0.65f, 0.05f).setLoopPingPong(1);
             //rb.velocity = Vector2.zero;
+            anim.SetTrigger("Jump");
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpInput = false;
             onFloor = false;
