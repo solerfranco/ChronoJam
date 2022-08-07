@@ -6,6 +6,7 @@ public class Cloud : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed;
+    public bool destroy = true;
 
     void Start()
     {
@@ -15,7 +16,10 @@ public class Cloud : MonoBehaviour
 
     void DestroyCloud()
     {
-        Destroy(gameObject);
+        if (destroy)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void FixedUpdate()

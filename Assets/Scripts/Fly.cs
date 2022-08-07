@@ -6,6 +6,7 @@ public class Fly : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed = -300;
+    public GameObject particles;
 
     private void Awake()
     {
@@ -21,5 +22,13 @@ public class Fly : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(speed * Time.fixedDeltaTime, rb.velocity.y);
+    }
+
+    private void OnDestroy()
+    {
+        if (particles)
+        {
+            Instantiate(particles, transform.position, Quaternion.identity, null);
+        }
     }
 }
