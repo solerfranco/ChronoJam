@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private Coroutine freezeCoroutine;
     private bool dashing;
     private Vector2 velocity;
+    public GameObject dustParticle;
     private int DashesRemaning
     {
         get
@@ -106,6 +107,7 @@ public class Player : MonoBehaviour
         }
         if (jumpInput)
         {
+            anim.SetBool("Floor", false);
             //LeanTween.scaleX(gameObject, 0.65f, 0.05f).setLoopPingPong(1);
             //rb.velocity = Vector2.zero;
             anim.SetTrigger("Jump");
@@ -122,6 +124,7 @@ public class Player : MonoBehaviour
             RestoreTime();
             ResetDashLimit();
             onFloor = true;
+            anim.SetBool("Floor", true);
         }
 
         if (collision.gameObject.CompareTag("Wall") || dashing)
@@ -173,6 +176,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        Instantiate(dustParticle, transform.position, Quaternion.identity, null);
         anim.SetBool("Dashing", true);
         dashing = true;
         yield return new WaitForSecondsRealtime(0.03f);
