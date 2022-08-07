@@ -28,6 +28,13 @@ public class LifeCounter : MonoBehaviour
     public float EnemyLifeIncrease;
 
     private float timePlayed;
+    public float TimePlayed
+    {
+        get { return timePlayed; }
+        set { timePlayed = value;
+            PlayerPrefs.SetInt("Score", (int) value);
+        }
+    }
 
     float life;
 
@@ -41,8 +48,8 @@ public class LifeCounter : MonoBehaviour
     {
         if (isStarted)
         {
-            timePlayed += Time.deltaTime;
-            Life -= lifeDecreaseRate(timePlayed);
+            TimePlayed += Time.deltaTime;
+            Life -= lifeDecreaseRate(TimePlayed);
             Die();
         }
     }
