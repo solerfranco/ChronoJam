@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public float speed;
     public float jumpForce;
     private Animator anim;
+    public AudioSource audioSourceJump;
+    public AudioSource audioSourceDash;
     public LifeCounter lifeCounter;
 
     public int[] comboThreshold;
@@ -111,6 +113,7 @@ public class Player : MonoBehaviour
             //LeanTween.scaleX(gameObject, 0.65f, 0.05f).setLoopPingPong(1);
             //rb.velocity = Vector2.zero;
             anim.SetTrigger("Jump");
+            audioSourceJump.Play();
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpInput = false;
             onFloor = false;
@@ -195,6 +198,7 @@ public class Player : MonoBehaviour
         dashing = true;
         yield return new WaitForSecondsRealtime(0.03f);
         rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal") * ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 1.3f), (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1 : 0) * jumpForce * 1.2f, ForceMode2D.Impulse);
+        audioSourceDash.Play();
         DashesRemaning--;
         rb.gravityScale = 0;
         yield return new WaitForSeconds(0.2f);
