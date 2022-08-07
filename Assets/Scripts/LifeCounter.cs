@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LifeCounter : MonoBehaviour
 
@@ -49,6 +50,32 @@ public class LifeCounter : MonoBehaviour
     public void IncreaseLife()
     {
         Life += EnemyLifeIncrease;
+        if(Life > StartingLife)
+        {
+            Life = StartingLife;
+        }
+    }
+
+    public void DecreaseLife(string enemyType)
+    {
+    
+        if (enemyType == "Bee")
+        {
+            Life -= 5;
+        }
+
+        if (enemyType == "Bug")
+        {
+            Life -= 20;
+        }
+    }
+
+    void Die()
+    {
+        if(Life <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
 }
