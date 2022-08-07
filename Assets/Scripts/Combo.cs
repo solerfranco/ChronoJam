@@ -35,9 +35,13 @@ public sealed class Combo : MonoBehaviour
     //Cambiar dependiendo de tipo de enemigo
     public void IncrementComboByEnemyType(string enemyType)
     {
-        if(enemyType == "enemy")
+        if(enemyType == "Fly")
         {
-            ComboMultiplier+=2;
+            ComboMultiplier ++;
+        }
+        if (enemyType == "Bee")
+        {
+            ComboMultiplier = 0;
         }
     }
 }

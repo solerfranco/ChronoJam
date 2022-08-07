@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float speed;
     public float jumpForce;
     private Animator anim;
+    public LifeCounter lifeCounter;
 
     public int[] comboThreshold;
     private bool jumpInput;
@@ -134,11 +135,12 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fly"))
         {
-            combo.IncrementComboByEnemyType("enemy");
+            lifeCounter.IncreaseLife();
             dashRefill(combo.ComboMultiplier);
             Destroy(collision.gameObject);
             freezeCoroutine = StartCoroutine(FreezeFrame());
         }
+        combo.IncrementComboByEnemyType(collision.gameObject.tag);
     }
 
     private void CheckColor()

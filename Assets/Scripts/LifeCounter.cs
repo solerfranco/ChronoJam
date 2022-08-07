@@ -7,29 +7,48 @@ public class LifeCounter : MonoBehaviour
 {
     public bool IsStarted { get; set; }
     public float Life { get; set; }
+    public float StartingLife;
+    public float EnemyLifeIncrease;
 
     private float timePlayed;
 
+    float life;
+
+    void Start()
+    {
+        Life = StartingLife;
+    }
 
     void Update()
     {
-        if(IsStarted)
+        if (IsStarted)
         {
-            float life = 100f;
             timePlayed += Time.deltaTime;
-            life -= lifeDecreaseRate(timePlayed);
+            Life -= lifeDecreaseRate(timePlayed);
         }
-
     }
 
     float lifeDecreaseRate(float timePlayed)
     {
-        float decreaseValue = 1;
-        if(timePlayed > 20f)
+        float decreaseValue = Time.deltaTime;
+        if(timePlayed > 30f && timePlayed <= 60f)
         {
-           decreaseValue = 1.5f;
+           decreaseValue *= 1.2f;
+        }
+        if (timePlayed > 60f && timePlayed <= 90f)
+        {
+            decreaseValue *= 1.4f;
+        }
+        if (timePlayed > 90f)
+        {
+            decreaseValue *= 1.8f;
         }
         return decreaseValue;
+    }
+
+    public void IncreaseLife()
+    {
+        Life += EnemyLifeIncrease;
     }
 
 }
