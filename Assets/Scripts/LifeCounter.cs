@@ -1,24 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LifeCounter : MonoBehaviour
 
 {
     public bool IsStarted { get; set; }
-    public TextMeshProUGUI textUi;
-    public float Life {
-        get
-        {
-            return life;
-        }
-        set
-        {
-            life = value;
-            textUi.text = ((int)value).ToString();
-        }
-    }
+    public float Life { get; set; }
     public float StartingLife;
     public float EnemyLifeIncrease;
 
@@ -33,7 +22,7 @@ public class LifeCounter : MonoBehaviour
 
     void Update()
     {
-        if (IsStarted || true)
+        if (IsStarted)
         {
             timePlayed += Time.deltaTime;
             Life -= lifeDecreaseRate(timePlayed);
@@ -62,7 +51,8 @@ public class LifeCounter : MonoBehaviour
     public void IncreaseLife()
     {
         Life += EnemyLifeIncrease;
-        if (Life > StartingLife)
+
+        if(Life > StartingLife)
         {
             Life = StartingLife;
         }
@@ -82,9 +72,10 @@ public class LifeCounter : MonoBehaviour
         }
     }
 
-    private void Die()
+
+    void Die()
     {
-        if (Life <= 0)
+        if(Life <= 0)
         {
             SceneManager.LoadScene(1);
         }
