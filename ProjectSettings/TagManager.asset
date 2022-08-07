@@ -7,6 +7,7 @@ TagManager:
   - Fly
   - Floor
   - Wall
+  - Bee
   layers:
   - Default
   - TransparentFX
