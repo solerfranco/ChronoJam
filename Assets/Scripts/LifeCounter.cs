@@ -37,6 +37,7 @@ public class LifeCounter : MonoBehaviour
         {
             timePlayed += Time.deltaTime;
             Life -= lifeDecreaseRate(timePlayed);
+            Die();
         }
     }
 
@@ -61,6 +62,32 @@ public class LifeCounter : MonoBehaviour
     public void IncreaseLife()
     {
         Life += EnemyLifeIncrease;
+        if (Life > StartingLife)
+        {
+            Life = StartingLife;
+        }
+    }
+
+    public void DecreaseLife(string enemyType)
+    {
+
+        if (enemyType == "Bee")
+        {
+            Life -= 5;
+        }
+
+        if (enemyType == "Bug")
+        {
+            Life -= 20;
+        }
+    }
+
+    private void Die()
+    {
+        if (Life <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
 }
