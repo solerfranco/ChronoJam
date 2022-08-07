@@ -99,8 +99,11 @@ public class Player : MonoBehaviour
         if (onFloor)
         {
             rb.velocity = new Vector2(direction * (direction < 0 ? speed : speed / 1.5f) * Time.fixedDeltaTime, rb.velocity.y);
-           // rb.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
-            combo.ResetCombo();
+            // rb.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
+            if (combo)
+            {
+                combo.ResetCombo();
+            }
             DashesRemaning = 1;
         }
         else if(!dashing)
@@ -142,15 +145,18 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
         }
-        combo.IncrementComboByEnemyType(collision.gameObject.tag);
+        if (combo)
+        {
+            combo?.IncrementComboByEnemyType(collision.gameObject.tag);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Fly"))
         {
-            lifeCounter.IncreaseLife();
-            dashRefill(combo.ComboMultiplier);
+            lifeCounter?.IncreaseLife();
+            dashRefill(combo ? combo.ComboMultiplier : 1);
             Destroy(collision.gameObject);
             freezeCoroutine = StartCoroutine(FreezeFrame());
         }
@@ -160,7 +166,10 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
         }
-        combo.IncrementComboByEnemyType(collision.gameObject.tag);
+        if (combo)
+        {
+            combo.IncrementComboByEnemyType(collision.gameObject.tag);
+        }
     }
 
     private void CheckColor()
