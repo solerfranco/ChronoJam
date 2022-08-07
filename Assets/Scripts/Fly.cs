@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fly : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public float speed = -300;
 
     private void Awake()
     {
@@ -19,6 +20,6 @@ public class Fly : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(-300 * Time.fixedDeltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(speed * Time.fixedDeltaTime, rb.velocity.y);
     }
 }
