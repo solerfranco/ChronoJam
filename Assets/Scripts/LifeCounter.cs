@@ -1,12 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LifeCounter : MonoBehaviour
 
 {
     public bool IsStarted { get; set; }
-    public float Life { get; set; }
+    public TextMeshProUGUI textUi;
+    public float Life {
+        get
+        {
+            return life;
+        }
+        set
+        {
+            life = value;
+            textUi.text = ((int)value).ToString();
+        }
+    }
     public float StartingLife;
     public float EnemyLifeIncrease;
 
@@ -21,7 +33,7 @@ public class LifeCounter : MonoBehaviour
 
     void Update()
     {
-        if (IsStarted)
+        if (IsStarted || true)
         {
             timePlayed += Time.deltaTime;
             Life -= lifeDecreaseRate(timePlayed);
