@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -172,6 +173,10 @@ public class Player : MonoBehaviour
             lifeCounter.DecreaseLife(collision.gameObject.tag);
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
+        }
+        if(collision.gameObject.CompareTag("LaunchBox"))
+        {
+            SceneManager.LoadScene(2);
         }
         if (combo)
         {
