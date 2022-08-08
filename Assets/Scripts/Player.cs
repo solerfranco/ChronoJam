@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class Player : MonoBehaviour
     public AudioSource audioSourceHit;
     public LifeCounter lifeCounter;
 
+
     public int[] comboThreshold;
     private bool jumpInput;
     private float direction;
@@ -23,6 +26,7 @@ public class Player : MonoBehaviour
     private bool dashing;
     private Vector2 velocity;
     public GameObject dustParticle;
+    public TextMeshProUGUI dashCounter;
     private int DashesRemaning
     {
         get
@@ -32,7 +36,7 @@ public class Player : MonoBehaviour
         set
         {
             dashesRemaning = value;
-            //CheckColor();
+            dashCounter.text = "Dashes Remaning: " + value.ToString();
         }
     }
 

@@ -12,12 +12,17 @@ public class GekoMenu : MonoBehaviour
 
     public void Rickroll()
     {
-        Application.OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        Application.OpenURL("https://www.youtube.com/watch?v=GKNB7Eid-ek&ab_channel=NimbusFilms");
     }
 
     public void LoadGame()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void LoadTutorial()
+    {
+        SceneManager.LoadScene(3);
     }
 
     public void QuitGame()
