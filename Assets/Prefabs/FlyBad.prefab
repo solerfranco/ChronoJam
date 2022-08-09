@@ -121,8 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4727ed60c47a34847940d860a31ff1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -300
-  particles: {fileID: 2245960261094665215, guid: a077aefb8b129e542ba0503483e88c01, type: 3}
+  speed: -400
+  deathParticles: {fileID: 2245960261094665215, guid: a077aefb8b129e542ba0503483e88c01, type: 3}
+  damage: 5
+  isEnemy: 1
 --- !u!58 &-8844713461283064903
 CircleCollider2D:
   m_ObjectHideFlags: 0

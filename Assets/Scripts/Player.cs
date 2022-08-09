@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Bee"))
         {
             audioSourceHit.Play();
-            lifeCounter.DecreaseLife(collision.gameObject.tag);
+            lifeCounter.Life -= 5;
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
         }
@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fly"))
         {
-            lifeCounter?.IncreaseLife();
+            lifeCounter.Life += 4;
             dashRefill(combo ? combo.ComboMultiplier : 1);
             Destroy(collision.gameObject);
             freezeCoroutine = StartCoroutine(FreezeFrame());
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Bee"))
         {
             audioSourceHit.Play();
-            lifeCounter.DecreaseLife(collision.gameObject.tag);
+            lifeCounter.Life -= 5;
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
         }
@@ -181,25 +181,6 @@ public class Player : MonoBehaviour
         if (combo)
         {
             combo.IncrementComboByEnemyType(collision.gameObject.tag);
-        }
-    }
-
-    private void CheckColor()
-    {
-        switch (DashesRemaning)
-        {
-            case 0:
-                GetComponent<SpriteRenderer>().color = Color.red;
-                break;
-            case 1:
-                GetComponent<SpriteRenderer>().color = Color.yellow;
-                break;
-            case 2:
-                GetComponent<SpriteRenderer>().color = Color.green;
-                break;
-            default:
-                GetComponent<SpriteRenderer>().color = Color.blue;
-                break;
         }
     }
 

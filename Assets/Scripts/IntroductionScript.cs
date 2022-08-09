@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using TMPro;
 
 
 public class IntroductionScript : MonoBehaviour
 {
-    public Image earth;
     public Image earthDestroyed;
     public Image shadowGecko;
     public Image lightGecko;
     public Image worldBurns;
     public Button button;
     public TextMeshProUGUI textUi;
+    private PlayerInputActions playerInputActions;
+
+    private void Start()
+    {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.UI.Enable();
+        playerInputActions.UI.Continue.performed += Continue;
+    }
 
     public void Transition(Image image, Color from, Color to)
     {
@@ -69,7 +77,13 @@ public class IntroductionScript : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene(4);
+        playerInputActions.UI.Disable();
         button.onClick.RemoveAllListeners();
+        SceneManager.LoadScene(4);
+    }
+
+    private void Continue(InputAction.CallbackContext obj)
+    {
+        button.onClick.Invoke();
     }
 }

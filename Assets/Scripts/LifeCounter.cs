@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class LifeCounter : MonoBehaviour
 
 {
+    public static LifeCounter instance;
     public Slider ageSlider;
     public bool isStarted;
     public TextMeshProUGUI textUi;
@@ -19,13 +20,13 @@ public class LifeCounter : MonoBehaviour
         }
         set
         {
-            life = value;
+            life = Mathf.Clamp(value, 0, StartingLife);
             textUi.text = ((int)value).ToString();
             ageSlider.value = value;
+            if (life <= 0) Die();
         }
     }
     public float StartingLife;
-    public float EnemyLifeIncrease;
 
     private float timePlayed;
     public float TimePlayed
@@ -38,6 +39,18 @@ public class LifeCounter : MonoBehaviour
 
     float life;
 
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     void Start()
     {
         Life = StartingLife;
@@ -49,12 +62,11 @@ public class LifeCounter : MonoBehaviour
         if (isStarted)
         {
             TimePlayed += Time.deltaTime;
-            Life -= lifeDecreaseRate(TimePlayed);
-            Die();
+            Life -= LifeDecreaseRate(TimePlayed);
         }
     }
 
-    float lifeDecreaseRate(float timePlayed)
+    float LifeDecreaseRate(float timePlayed)
     {
         float decreaseValue = Time.deltaTime;
         if(timePlayed > 30f && timePlayed <= 60f)
@@ -72,37 +84,10 @@ public class LifeCounter : MonoBehaviour
         return decreaseValue;
     }
 
-    public void IncreaseLife()
-    {
-        Life += EnemyLifeIncrease;
-
-        if(Life > StartingLife)
-        {
-            Life = StartingLife;
-        }
-    }
-
-    public void DecreaseLife(string enemyType)
-    {
-
-        if (enemyType == "Bee")
-        {
-            Life -= 5;
-        }
-
-        if (enemyType == "Bug")
-        {
-            Life -= 20;
-        }
-    }
-
 
     void Die()
     {
-        if(Life <= 0)
-        {
-            SceneManager.LoadScene(1);
-        }
+        SceneManager.LoadScene(1);
     }
 
 }

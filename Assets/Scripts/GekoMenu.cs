@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GekoMenu : MonoBehaviour
 {
+    private PlayerInputActions playerInputActions;
+
     void Start()
     {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.UI.Enable();
+        playerInputActions.UI.Continue.performed += Continue;
         Invoke(nameof(Animation), 0.5f);
     }
 
@@ -33,5 +39,11 @@ public class GekoMenu : MonoBehaviour
     void Animation()
     {
         LeanTween.moveLocalY(gameObject, -40, 1f).setEaseOutBounce();
+    }
+
+    private void Continue(InputAction.CallbackContext obj)
+    {
+        playerInputActions.UI.Disable();
+        LoadGame();
     }
 }
