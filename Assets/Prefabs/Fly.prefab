@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: -300
   deathParticles: {fileID: 2245960261094665215, guid: 99db5ec4ef545cf45bae8f6375094fb5, type: 3}
-  damage: -4
+  damage: -3
   isEnemy: 0
 --- !u!58 &-8844713461283064903
 CircleCollider2D:

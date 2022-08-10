@@ -221,7 +221,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 19.262657, y: 2.69}
+    oldSize: {x: 19.2, y: 2.69}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7353066138893700479, guid: 5f16dff7ccd72134fbab148cd4848228, type: 3}
-  minTime: 1
+  minTime: 3
   maxTime: 7
   move: 0
   variants: []
@@ -1581,7 +1581,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 19.262657, y: 2.69}
+    oldSize: {x: 19.2, y: 2.69}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1786,8 +1786,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3304669346922194918, guid: 3e152231079530b41ba7e0cfc4e829dd, type: 3}
-  minTime: 2
-  maxTime: 4
+  minTime: 3
+  maxTime: 3
   move: 0
   variants: []
 --- !u!4 &1219429222
@@ -1798,7 +1798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219429220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.94, y: -3.54, z: 0}
+  m_LocalPosition: {x: 34.1, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2623,7 +2623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3304669346922194918, guid: 7d7b32b6094b2274f8c549c899b2dcbb, type: 3}
-  minTime: 1
+  minTime: 3
   maxTime: 7
   move: 1
   variants: []
@@ -2641,6 +2641,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1733919505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1733919507}
+  - component: {fileID: 1733919506}
+  m_Layer: 0
+  m_Name: FlySpawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1733919506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733919505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738a39ed39ac15949a8497f8a04ba2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3304669346922194918, guid: 3e152231079530b41ba7e0cfc4e829dd, type: 3}
+  minTime: 6
+  maxTime: 6
+  move: 0
+  variants: []
+--- !u!4 &1733919507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733919505}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 43.1, y: 5.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1802472132
 GameObject:
@@ -2672,9 +2721,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3304669346922194918, guid: 3e152231079530b41ba7e0cfc4e829dd, type: 3}
-  minTime: 3
-  maxTime: 5
-  move: 1
+  minTime: 9
+  maxTime: 9
+  move: 0
   variants: []
 --- !u!4 &1802472134
 Transform:
@@ -2684,7 +2733,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802472132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18, y: -5, z: 0}
+  m_LocalPosition: {x: 29.6, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

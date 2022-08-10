@@ -69,17 +69,21 @@ public class LifeCounter : MonoBehaviour
     float LifeDecreaseRate(float timePlayed)
     {
         float decreaseValue = Time.deltaTime;
-        if(timePlayed > 30f && timePlayed <= 60f)
+        if (timePlayed > 30f && timePlayed <= 60f)
         {
-           decreaseValue *= 1.2f;
+           decreaseValue *= 1.4f;
         }
         if (timePlayed > 60f && timePlayed <= 90f)
         {
-            decreaseValue *= 1.4f;
+            decreaseValue *= 1.6f;
         }
         if (timePlayed > 90f)
         {
             decreaseValue *= 1.8f;
+        }
+        if(timePlayed > 120f)
+        {
+            decreaseValue *= 2.1f;
         }
         return decreaseValue;
     }

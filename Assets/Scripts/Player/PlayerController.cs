@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(!CanDash() && !IsDashing)
         {
-             rb.velocity = new Vector2(inputDirection * speed / 2, rb.velocity.y);
+             rb.velocity = new Vector2(inputDirection * speed / 1.5f, rb.velocity.y);
         }
     }
 
