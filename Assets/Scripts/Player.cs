@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
             // rb.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, rb.velocity.y);
             if (combo)
             {
-                combo.ResetCombo();
+                combo.ComboMultiplier = 0;
             }
             DashesRemaning = 1;
         }
@@ -152,10 +152,6 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             //freezeCoroutine = StartCoroutine(FreezeFrame());
         }
-        if (combo)
-        {
-            combo?.IncrementComboByEnemyType(collision.gameObject.tag);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -177,10 +173,6 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("LaunchBox"))
         {
             SceneManager.LoadScene(2);
-        }
-        if (combo)
-        {
-            combo.IncrementComboByEnemyType(collision.gameObject.tag);
         }
     }
 

@@ -16,7 +16,7 @@ public class GameOver : MonoBehaviour
         playerInputActions.Player.Disable();
         LeanTween.moveLocalY(gameObject, 0, 1).setEaseInOutQuad();
         Invoke(nameof(EnableControls), 1f);
-        scoreUi.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
+        scoreUi.text = "Score: " + (PlayerPrefs.GetInt("Score", 0)/100).ToString();
     }
 
     void EnableControls()

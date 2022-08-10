@@ -29,11 +29,16 @@ public class LifeCounter : MonoBehaviour
     public float StartingLife;
 
     private float timePlayed;
-    public float TimePlayed
+
+    private float score;
+    public float Score
     {
-        get { return timePlayed; }
-        set { timePlayed = value;
-            PlayerPrefs.SetInt("Score", (int) value);
+        get { return score; }
+        set
+        {
+            score = value;
+            PlayerPrefs.SetInt("Score", (int)value);
+            print("Score: " + score + " Multiplicador: X" + Combo.instance.ComboMultiplier);
         }
     }
 
@@ -61,8 +66,9 @@ public class LifeCounter : MonoBehaviour
     {
         if (isStarted)
         {
-            TimePlayed += Time.deltaTime;
-            Life -= LifeDecreaseRate(TimePlayed);
+            timePlayed += Time.deltaTime;
+            Score += Time.deltaTime * Combo.instance.ComboMultiplier > 0 ? Combo.instance.ComboMultiplier : 1;
+            Life -= LifeDecreaseRate(timePlayed);
         }
     }
 

@@ -16,7 +16,7 @@ public class Floor : MonoBehaviour
     {
         if(transform.localPosition.x < -34)
         {
-            transform.localPosition = new Vector3(42.4f, 0, 0);
+            transform.localPosition = new Vector3(41.5f, 0, 0);
         }
         rb.velocity = new Vector2(speed * Time.fixedDeltaTime, rb.velocity.y);
     }

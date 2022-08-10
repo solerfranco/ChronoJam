@@ -196,4 +196,9 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1;
         Time.fixedDeltaTime = 0.02f;
     }
+
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
+    }
 }

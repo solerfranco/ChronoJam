@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public sealed class Combo : MonoBehaviour
 {
 
     public static Combo instance;
     public TextMeshProUGUI textUi;
-    private int comboMultiplier;
+    private int comboMultiplier = 0;
     public int ComboMultiplier
     {
         get
@@ -20,21 +17,22 @@ public sealed class Combo : MonoBehaviour
         {
             comboMultiplier = value;
             textUi.text = "x" + value;
+            textUi.enabled = value >= 1;
             switch (value)
             {
-                case 0:
+                case 1:
                     textUi.color = Color.white;
                     break;
-                case 1:
+                case 2:
                     textUi.color = Color.green;
                     break;
-                case 2:
+                case 3:
                     textUi.color = Color.yellow;
                     break;
-                case 3:
+                case 4:
                     textUi.color = Color.magenta;
                     break;
-                case 4:
+                case 5:
                     textUi.color = Color.red;
                     break;
                 default:
@@ -53,33 +51,6 @@ public sealed class Combo : MonoBehaviour
         else
         {
             instance = this;
-        }
-    }
-
-    void Start()
-    {
-        ComboMultiplier = 0;
-    }
-
-    public void ResetCombo() {
-        ComboMultiplier = 0;
-    }
-
-    public void IncrementCombo()
-    {
-        ComboMultiplier++;
-    }
-
-    //Cambiar dependiendo de tipo de enemigo
-    public void IncrementComboByEnemyType(string enemyType)
-    {
-        if(enemyType == "Fly")
-        {
-            ComboMultiplier ++;
-        }
-        if (enemyType == "Bee")
-        {
-            ComboMultiplier = 0;
         }
     }
 }
