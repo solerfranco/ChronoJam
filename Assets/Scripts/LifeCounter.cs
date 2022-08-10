@@ -38,7 +38,6 @@ public class LifeCounter : MonoBehaviour
         {
             score = value;
             PlayerPrefs.SetInt("Score", (int)value);
-            print("Score: " + score + " Multiplicador: X" + Combo.instance.ComboMultiplier);
         }
     }
 

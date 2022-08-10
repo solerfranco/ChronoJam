@@ -390,6 +390,7 @@ MonoBehaviour:
     m_Bits: 128
   jumpForce: 12
   speed: 12
+  outlineMaterial: {fileID: 2100000, guid: f3317a588a5f6af40ad2ea5d379b04b2, type: 2}
   jumpSound: {fileID: 2030833622479925571}
   dashSound: {fileID: 2030833622479925568}
   enemyHitSound: {fileID: 952822681}

@@ -6,8 +6,6 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("UI")]
-    public TextMeshProUGUI dashCounter;
 
     [Header("Player Properties")]
     [SerializeField]
@@ -16,6 +14,9 @@ public class PlayerController : MonoBehaviour
     protected float jumpForce = 12f;
     [SerializeField]
     protected float speed = 12f;
+    [SerializeField]
+    protected Material outlineMaterial;
+    private Material originalMaterial;
 
     private int remainingDashes = 0;
     private int RemainingDashes
@@ -26,8 +27,8 @@ public class PlayerController : MonoBehaviour
         }
         set
         {
+            sprite.material = value > 0 ? outlineMaterial : originalMaterial;
             remainingDashes = value;
-            dashCounter.text = "Dash amount: " + value.ToString();
         }
     }
     public AudioSource jumpSound;
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
+    private SpriteRenderer sprite;
     private CapsuleCollider2D capsuleCollider;
     private PlayerInputActions playerInputActions;
 
@@ -57,6 +59,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        originalMaterial = sprite.material;
+        sprite.material = outlineMaterial;
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
